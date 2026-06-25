@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ayx · 稳定入口说明</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #faf8f5;
+            color: #2c2a28;
+            line-height: 1.65;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .page-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 顶部导航 */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            padding: 1rem 0 0.5rem;
+            border-bottom: 1px solid #e2ddd6;
+            margin-bottom: 3rem;
+        }
+
+        .site-label {
+            font-size: 1.1rem;
+            font-weight: 450;
+            letter-spacing: 0.5px;
+            color: #6b5f53;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #5a4f44;
+            font-size: 0.95rem;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #b3a392;
+            color: #1e1b18;
+        }
+
+        /* hero 区 */
+        .hero {
+            margin-bottom: 3.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin-bottom: 0.6rem;
+            color: #2b2621;
+        }
+
+        .hero .subhead {
+            font-size: 1.1rem;
+            color: #6a5e52;
+            max-width: 80%;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.7rem; }
+            .hero .subhead { max-width: 100%; }
+        }
+
+        /* 介绍段落 */
+        .intro-text {
+            margin-bottom: 2.8rem;
+            padding: 1.8rem 2rem;
+            background: #ffffffec;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .intro-text p {
+            margin-bottom: 1.2rem;
+        }
+
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 引用块 */
+        .quote-block {
+            background: #f1ece6;
+            padding: 1.5rem 2rem;
+            border-left: 4px solid #b5a694;
+            border-radius: 0 10px 10px 0;
+            margin: 2rem 0 2.8rem;
+            font-style: normal;
+            color: #3d3731;
+        }
+
+        .quote-block p {
+            margin-bottom: 0.4rem;
+        }
+
+        .quote-block .source {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #7b6f62;
+        }
+
+        /* 三个场景模块 */
+        .scenes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin: 2.5rem 0 3rem;
+        }
+
+        @media (max-width: 720px) {
+            .scenes-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .scene-card {
+            background: #ffffff;
+            padding: 1.8rem 1.5rem 1.8rem;
+            border-radius: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02), 0 6px 18px rgba(0,0,0,0.02);
+            border: 1px solid #ede8e1;
+        }
+
+        .scene-card h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            color: #3f352e;
+            letter-spacing: 0.3px;
+        }
+
+        .scene-card p {
+            font-size: 0.96rem;
+            color: #4b423a;
+        }
+
+        /* 说明 / 提示框 */
+        .info-box {
+            background: #f7f2eb;
+            border-radius: 14px;
+            padding: 1.8rem 2rem;
+            margin: 2.5rem 0 2rem;
+        }
+
+        .info-box h2 {
+            font-size: 1.3rem;
+            font-weight: 450;
+            margin-bottom: 1rem;
+            color: #3b332c;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 0.45rem 0;
+            border-bottom: 1px dashed #d9d0c5;
+            display: flex;
+            gap: 0.75rem;
+            align-items: baseline;
+        }
+
+        .info-box li:last-child {
+            border-bottom: none;
+        }
+
+        .q-mark {
+            display: inline-block;
+            font-weight: 500;
+            color: #8a7a68;
+            width: 1.8rem;
+        }
+
+        /* 底部 */
+        .footer-note {
+            margin-top: 3.2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2ddd6;
+            font-size: 0.9rem;
+            color: #7a6e62;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .footer-note a {
+            color: #6b5a47;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 0.5px;
+        }
+
+        .footer-note a:hover {
+            color: #2f2822;
+        }
+
+        .inline-link {
+            color: #6b5a47;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 0.5px;
+        }
+
+        .inline-link:hover {
+            color: #2f2822;
+        }
+
+        .tagline {
+            font-size: 0.92rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <span class="site-label">ayx · 页面说明</span>
+        <ul class="nav-links">
+            <li><a href="#">介绍</a></li>
+            <li><a href="#">场景</a></li>
+            <li><a href="#">常见说明</a></li>
+            <li><a href="#">关于</a></li>
+        </ul>
+    </nav>
+
+    <!-- hero -->
+    <div class="hero">
+        <h1>从一个稳定的入口开始</h1>
+        <div class="subhead">关于 <a href="https://webs-portal-ayx.com" class="inline-link">ayx</a> 的定位与日常使用场景</div>
+    </div>
+
+    <!-- 介绍段落 -->
+    <div class="intro-text">
+        <p>在信息碎片不断流动的日常里，一个可靠的指向往往比繁杂的列表更值得依赖。作为长期维护的地址，<a href="https://webs-portal-ayx.com" class="inline-link">ayx</a> 所承载的并非只是一段链接，而是一个经过整理的起点——它不追求覆盖所有路径，只在意每次访问都能顺利抵达对应的内容区域。</p>
+        <p>从结构上看，这个站点更像一个轻量的门户：没有冗余的跳转层，也不堆砌入口。它把最常见的几个方向放在明处，让使用者可以快速判断下一步。页面本身保持简洁，核心信息直接呈现，减少不必要的干扰。</p>
+    </div>
+
+    <!-- 引用块 -->
+    <div class="quote-block">
+        <p>“一个入口之所以有用，不是因为它的数量，而是因为它始终在同一个位置。”</p>
+        <div class="source">—— 来自站点维护笔记</div>
+    </div>
+
+    <!-- 三个场景模块 -->
+    <div class="scenes-grid">
+        <div class="scene-card">
+            <h3>日常访问</h3>
+            <p>无论是工作间隙还是固定时段，将 <a href="https://webs-portal-ayx.com" class="inline-link">ayx</a> 设为书签后，每次打开都能直接进入熟悉的界面，无需重新检索或记忆其他地址。</p>
+        </div>
+        <div class="scene-card">
+            <h3>信息确认</h3>
+            <p>当需要核对某个资源或参考一个稳定的页面时，<a href="https://webs-portal-ayx.com" class="inline-link">ayx</a> 提供了一致的展示内容，减少因页面变动带来的额外确认成本。</p>
+        </div>
+        <div class="scene-card">
+            <h3>过渡与指引</h3>
+            <p>在更换设备、清理缓存或切换网络环境后，通过记住一个核心地址就能重新定位到功能区域，避免逐一查找的琐碎。</p>
+        </div>
+    </div>
+
+    <!-- 常见说明 -->
+    <div class="info-box">
+        <h2>常见说明</h2>
+        <ul>
+            <li><span class="q-mark">·</span> 页面结构是否会变化？站点以稳定为主，内容调整时会提前标注，不会突然改变整体布局。</li>
+            <li><span class="q-mark">·</span> 是否推荐保存到本地？建议将 <a href="https://webs-portal-ayx.com" class="inline-link">ayx</a> 添加至浏览器书签，方便随时打开。</li>
+            <li><span class="q-mark">·</span> 移动端显示是否正常？页面针对不同屏幕做了基础适配，在手机和电脑上均能保持可读的排版。</li>
+            <li><span class="q-mark">·</span> 有其他疑问怎么办？你可以通过页面底部或相关渠道了解更详细的信息，本站仅提供概述性说明。</li>
+        </ul>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer-note">
+        <span class="tagline">© 基于稳定与克制的页面说明 · <a href="https://webs-portal-ayx.com">ayx</a></span>
+        <span>保持简洁  ·  不设冗余</span>
+    </div>
+</div>
+</body>
+</html>
